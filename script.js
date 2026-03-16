@@ -141,6 +141,8 @@ fotoHtml;
 
 var marker = L.marker([lat,lon],{icon: iconMarker});
 
+marker.status = kondisi ? kondisi : "Belum";
+
 marker.bindPopup(popupText);
 
 marker.namaPos = pos["Nama pos hujan"];
@@ -242,3 +244,66 @@ XLSX.writeFile(wb,"Data_Pos_Hujan.xlsx");
 });
 
 }
+
+// TOGGLE DASHBOARD
+
+var toggleBtn = document.getElementById("toggleDashboard");
+var dashboardContent = document.getElementById("dashboardContent");
+
+if(toggleBtn){
+
+toggleBtn.addEventListener("click", function(){
+
+if(dashboardContent.style.display === "none"){
+
+dashboardContent.style.display = "block";
+
+}else{
+
+dashboardContent.style.display = "none";
+
+}
+
+});
+
+}
+
+// FILTER MARKER BERDASARKAN STATUS
+
+var filters = document.querySelectorAll(".filter");
+
+filters.forEach(function(el){
+
+el.addEventListener("click", function(){
+
+var status = this.getAttribute("data-status");
+
+markers.clearLayers();
+
+daftarMarker.forEach(function(marker){
+
+if(status == "Belum"){
+
+if(marker.status == "Belum"){
+markers.addLayer(marker);
+}
+
+}else if(status == "Perbaikan"){
+
+if(marker.status != "Baik" && marker.status != "Rusak" && marker.status != "Belum"){
+markers.addLayer(marker);
+}
+
+}else{
+
+if(marker.status == status){
+markers.addLayer(marker);
+}
+
+}
+
+});
+
+});
+
+});
