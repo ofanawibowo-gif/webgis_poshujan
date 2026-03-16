@@ -145,6 +145,13 @@ marker.status = kondisi ? kondisi : "Belum";
 
 marker.bindPopup(popupText);
 
+marker.bindTooltip(pos["Nama pos hujan"],{
+permanent:true,
+direction:"top",
+offset:[0,-20],
+className:"labelPos"
+});
+
 marker.namaPos = pos["Nama pos hujan"];
 
 daftarMarker.push(marker);
